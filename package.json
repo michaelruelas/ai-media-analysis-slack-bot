@@ -1,0 +1,22 @@
+{
+  "name": "audubon-bird-poc",
+  "version": "1.0.0",
+  "description": "POC for Audubon Bird Identification Slack Bot",
+  "main": "lambdas/bot_handler.ts",
+  "scripts": {
+    "start": "cd lambdas && npx ts-node bot_handler.ts",
+    "build": "cd lambdas && npm run build",
+    "test": "cd lambdas && npm test",
+    "test:invoke": "cd lambdas && npm run test:invoke"
+  },
+  "dependencies": {
+    "@slack/bolt": "^3.17.1",
+    "aws-sdk": "^2.1660.0",
+    "uuid": "^10.0.0",
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

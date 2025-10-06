@@ -1,0 +1,35 @@
+{
+  "name": "slack-bot-lambda",
+  "version": "1.0.0",
+  "description": "Slack bot Lambda function for AI media analysis",
+  "main": "bot_handler.ts",
+  "dependencies": {
+    "@slack/bolt": "^3.17.1",
+    "aws-sdk": "^2.1660.0",
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.6.2",
+    "@types/pg": "^8.15.5",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.37.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint *.ts",
+    "lint:fix": "eslint *.ts --fix",
+    "test:invoke": "npx ts-node test_invoke_bot.ts",
+    "build:zips": "npm run build && npm run zip:ai && npm run zip:bot",
+    "zip:ai": "zip -r ../terraform/ai_handler.zip dist/ai_lambda.js",
+    "zip:bot": "zip -r ../terraform/bot_handler.zip dist/bot_handler.js dist/mock-species.js package.json node_modules"
+  }
+}

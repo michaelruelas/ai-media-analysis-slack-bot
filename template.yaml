@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Local testing template for AI Lambda
+
+Globals:
+  Function:
+    Runtime: python3.13
+    Timeout: 30
+    Environment:
+      Variables:
+        MOCK_SPECIES: !Ref MOCK_SPECIES
+
+Resources:
+  AiLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/
+      Handler: ai_lambda.lambda_handler
+      Runtime: python3.13
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /analyze
+            Method: post
+      Environment:
+        Variables:
+          MOCK_SPECIES: !Sub |
+            [
+              {"id": 1, "name": "Cardinalis cardinalis"},
+              {"id": 2, "name": "Piranga rubra"},
+              {"id": 3, "name": "Columba livia"},
+              {"id": 4, "name": "Corvus brachyrhynchos"},
+              {"id": 5, "name": "Sturnus vulgaris"},
+              {"id": 6, "name": "Passer domesticus"},
+              {"id": 7, "name": "Meleagris gallopavo"},
+              {"id": 8, "name": "Buteo jamaicensis"},
+              {"id": 9, "name": "Turdus migratorius"},
+              {"id": 10, "name": "Cyanocitta cristata"}
+            ]
+
+Outputs:
+  AiLambdaFunction:
+    Description: "AI Lambda Function ARN"
+    Value: !GetAtt AiLambdaFunction.Arn
